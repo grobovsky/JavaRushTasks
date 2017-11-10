@@ -1,2 +1,2 @@
-# javaRush
+# javaRushTasks
 tasks16
