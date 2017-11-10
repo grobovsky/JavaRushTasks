@@ -1,16 +1,30 @@
-Сад-огород
+Последовательный вывод файлов
 
-1. Создай метод public void addFruit(int index, String fruit) — который добавляет параметр fruit в лист fruits на позицию index
+1. Разберись, что делает программа.
 
-2. Создай метод public void removeFruit(int index) — который удаляет из fruits элемент с индексом index
+2. В статическом блоке считай 2 имени файла firstFileName и secondFileName.
 
-3. Создай метод public void addVegetable(int index, String vegetable) — который добавляет параметр vegetable в лист vegetables на позицию index
+3. Внутри класса Solution создай нить public static ReadFileThread, которая реализует
 
-4. Создай метод public void removeVegetable(int index) — который удаляет из vegetables элемент с индексом index
+интерфейс ReadFileInterface (Подумай, что больше подходит — Thread или Runnable).
 
-5. Класс Garden будет использоваться нитями. Поэтому сделай так, чтобы все методы блокировали мьютекс this
+3.1. Метод setFileName должен устанавливать имя файла, из которого будет читаться содержимое.
 
-6. Реализуй это минимальным количеством кода
+3.2. Метод getFileContent должен возвращать содержимое файла.
+
+3.3. В методе run считай содержимое файла, закрой поток. Раздели пробелом строки файла.
+
+4. Подумай, в каком месте нужно подождать окончания работы нити, чтобы обеспечить последовательный вывод файлов.
+
+4.1. Для этого добавь вызов соответствующего метода.
+
+
+
+Ожидаемый вывод:
+
+[все тело первого файла]
+
+[все тело второго файла]
 
 
 
@@ -18,20 +32,16 @@
 
 Требования:
 
-1. Класс Garden должен содержать метод public void addFruit(int index, String fruit).
+1. Статический блок класса Solution должен считывать с консоли имена двух файлов и сохранять их в переменные firstFileName и secondFileName.
 
-2. Класс Garden должен содержать метод public void removeFruit(int index).
+2. Объяви в классе Solution public static класс ReadFileThread.
 
-3. Класс Garden должен содержать метод public void addVegetable(int index, String vegetable).
+3. Класс ReadFileThread должен реализовывать интерфейс ReadFileInterface.
 
-4. Класс Garden должен содержать метод public void removeVegetable(int index).
+4. Класс ReadFileThread должен быть унаследован от подходящего класса.
 
-5. Метод addFruit(int index, String fruit) должен добавлять параметр fruit в лист fruits на позицию index.
+5. Метод run класса ReadFileThread должен считывать строки из файла, установленного методом setFileName. А метод getFileContent, этого же класса, должен возвращать вычитанный контент. Возвращаемое значение - это одна строка, состоящая из строк файла, разделенных пробелами.
 
-6. Метод removeFruit(int index) должен удалять из fruits элемент с индексом index.
+6. Метод systemOutPrintln должен вызывать метод join у созданного объекта f.
 
-7. Метод addVegetable(int index, String vegetable) должен добавлять параметр vegetable в лист vegetables на позицию index.
-
-8. Метод removeVegetable(int index) должен удалять из vegetables элемент с индексом index.
-
-9. Все методы класса Garden должны блокировать мьютекс this (быть синхронизированы).
+7. Вывод программы должен состоять из 2х строк. Каждая строка - содержимое одного файла.
