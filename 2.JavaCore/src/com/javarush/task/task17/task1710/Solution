@@ -1,0 +1,106 @@
+package com.javarush.task.task17.task1710;
+
+
+import java.io.IOException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+/*
+CRUD
+*/
+
+public class Solution {
+    public static List<Person> allPeople = new ArrayList<Person>();
+
+    static {
+        allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
+        allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=1
+    }
+
+    public static Person creat(String name, String sex, String db) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        Date d = null;
+        Person person = null;
+        try {
+            d = df.parse(db);
+        }catch (ParseException e){
+            System.out.println("не верный формат даты");
+            System.exit(0);
+        }
+        if(sex.equals("м")){
+            person = Person.createMale(name, d);
+        }else if(sex.equals("ж")){
+            person = Person.createFemale(name, d);
+        }else {
+            System.out.println("не верный пол");
+            System.exit(0);
+        }
+        return person;
+    }
+
+    public static void main(String[] args) throws IOException {
+        if(args[0].equals("-c")) {
+            allPeople.add(creat(args[1], args[2], args[3]));
+            System.out.println(allPeople.size()-1);
+        }else if(args[0].equals("-u")){
+            int id = -1;
+            try {
+                id = Integer.parseInt(args[1]);
+            }catch (NumberFormatException e){
+                System.out.println("не верный id");
+                System.exit(0);
+            }
+            if(id>=0||id<=allPeople.size()-1) {
+                allPeople.remove(id);
+                allPeople.add(id, creat(args[2], args[3], args[4]));
+            }else {
+                System.out.println("нет такого Person");
+                System.exit(0);
+            }
+        }else if(args[0].equals("-d")){
+            int id = -1;
+            try {
+                id = Integer.parseInt(args[1]);
+            }catch (NumberFormatException e){
+                System.out.println("не верный id");
+                System.exit(0);
+            }
+            if(id>=0||id<=allPeople.size()-1) {
+                Person p = allPeople.get(id);
+                p.setName(null);
+                p.setSex(null);
+                p.setBirthDay(null);
+                allPeople.set(id, p);
+            }else{
+                System.out.println("нет такого Person");
+                System.exit(0);
+            }
+        }else if(args[0].equals("-i")){
+            SimpleDateFormat f = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+            int id = -1;
+            try {
+                id = Integer.parseInt(args[1]);
+            }catch (NumberFormatException e){
+                System.out.println("не верный id");
+                System.exit(0);
+            }
+            if(id>=0||id<=allPeople.size()-1) {
+                Person p = allPeople.get(id);
+                String s = "";
+                if(p.getSex() == Sex.MALE){
+                    s = "м";
+                }else s = "ж";
+                System.out.println(p.getName()+" "+s+" "+f.format(p.getBirthDay()));
+            }else{
+                System.out.println("нет такого Person");
+                System.exit(0);
+            }
+        }else {
+            System.out.println("нет такого параметра");
+            System.exit(0);
+        }
