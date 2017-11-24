@@ -1,0 +1,121 @@
+package com.javarush.task.task17.task1711;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+/* 
+CRUD 2
+*/
+
+public class Solution {
+    public static volatile List<Person> allPeople = new ArrayList<Person>();
+
+    static {
+        allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
+        allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=1
+    }
+
+    public static Person creatPerson(String name, String sex, String date){
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        Date db = null;
+        Person person = null;
+        try{
+           db = sf.parse(date);
+        }catch (ParseException e){
+            System.out.println("не верный формат даты рождения");
+        }
+        if(sex.equals("м")){
+            person = Person.createMale(name, db);
+        }else {
+            person = Person.createFemale(name, db);
+        }
+        return person;
+    }
+
+
+    public static void main(String[] args) {
+
+        
+        if(args != null) {
+            
+            Person p = null;
+            switch (args[0]) {
+                case "-c":
+                    synchronized (allPeople) {
+                        for (int i = 1; i < args.length; i += 3) {
+
+                            p = creatPerson(args[i], args[i + 1], args[i + 2]);
+                            allPeople.add(p);
+                            System.out.println(allPeople.indexOf(p));
+                        }
+
+                        break;
+                    }
+                case "-u":
+                    synchronized (allPeople) {
+                        for (int i = 1; i < args.length; i += 4) {
+                            int id = -1;
+                            try {
+                                id = Integer.parseInt(args[i]);
+                                if (id >= 0 && id < allPeople.size()) {
+                                    allPeople.remove(id);
+                                    allPeople.add(id, creatPerson(args[i + 1], args[i + 2], args[i + 3]));
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("не верный id");
+                            }
+
+                        }
+                        break;
+                    }
+                case "-d":
+                    synchronized (allPeople) {
+                        for (int i = 1; i < args.length; i++) {
+                            int id = -1;
+                            try {
+                                id = Integer.parseInt(args[i]);
+                                if (id >= 0 && id < allPeople.size()) {
+                                    p = allPeople.get(id);
+                                    p.setName(null);
+                                    p.setSex(null);
+                                    p.setBirthDay(null);
+                                    allPeople.set(id, p);
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("не верный id");
+                            }
+                        }
+                        break;
+                    }
+                case "-i":
+                    synchronized (allPeople) {
+                        for (int i = 1; i < args.length; i++) {
+                            SimpleDateFormat sf = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+                            int id = -1;
+                            try {
+                                id = Integer.parseInt(args[i]);
+                                if (id >= 0 && id < allPeople.size()) {
+                                    String s;
+                                    p = allPeople.get(id);
+                                    if (p.getSex() == Sex.MALE) {
+                                        s = "м";
+                                    } else {
+                                        s = "ж";
+                                    }
+                                    System.out.println(p.getName() + " " + s + " " + sf.format(p.getBirthDay()));
+                                }
+
+                            } catch (NumberFormatException e) {
+                                System.out.println("не верный id");
+                            }
+                        }
+                        break;
+                    }
+            }
+            //for(Person r : allPeople)System.out.println(r.getName()+" "+r.getSex()+" "+r.getBirthDay());
+        }
+
+        //start here - начни тут
+    }
+}
