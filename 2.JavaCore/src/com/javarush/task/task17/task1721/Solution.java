@@ -47,7 +47,7 @@ public class Solution {
 
     public void joinData () throws CorruptedDataException {
         int countString = forRemoveLines.size();
-        for(int i = 0; i < forRemoveLines.size(); i++){
+        for(int i = 0; i < forRemoveLines.size(); i++){   //вот что бывает, когда посмотрел методы ArrayList, а методы List не посмотрел и не вспомнил про containsAll
             if(allLines.contains(forRemoveLines.get(i))){
                 countString--;
             }
