@@ -14,8 +14,11 @@ public class Solution {
         Scanner scan = new Scanner(System.in);
         String fileName = scan.nextLine();
         scan.close();
-        String currentId = currentId(fileName);
-        addString(fileName, currentId, args[1], args[2], args[3]);
+        switch (args[0]) {
+            case "-c" :
+                String currentId = currentId(fileName);
+                addString(fileName, currentId, args[1], args[2], args[3]);
+        }
 
 
 
