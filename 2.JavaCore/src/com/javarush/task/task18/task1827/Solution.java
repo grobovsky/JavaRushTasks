@@ -24,6 +24,7 @@ public class Solution {
 
     }
     public static void addString (String fileName, String currentId, String productName, String price, String quantity){
+        //такое случается, когда пропускаешь занятия по форматированию строки...
         StringBuilder build = new StringBuilder(currentId);
         if(currentId.length() < 8){
             for(int i = currentId.length(); i < 8; i++){
