@@ -2,6 +2,11 @@ package com.javarush.task.task19.task1901;
 
 /* 
 TableAdapter
+
+Измени класс TableAdapter так, чтобы он адаптировал ATable к BTable.
+Метод getHeaderText должен возвращать такую строку "[username] : tablename".
+
+Пример, "[Amigo] : DashboardTable".
 */
 
 public class Solution {
