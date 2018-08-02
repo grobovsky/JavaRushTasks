@@ -61,10 +61,10 @@ public class Solution {
         public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException { \\порядок чтения
             mother = (Person)in.readObject();                                                  
             father = (Person)in.readObject();
-            firstName = (String) in.readObject();           \\String нормально получилось прочитать только readObject
+            firstName = (String) in.readObject();  \\String нормально получилось прочитать только readObject иначе EOFException
             lastName = (String) in.readObject();
             age = in.readInt();
-            children = (List)in.readObject();
+            children = (List) in.readObject();
         }
     }
 
