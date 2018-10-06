@@ -67,4 +67,26 @@ public class Solution {
             list.add(f);
         }
     }
+    
+    public static void loopAllFiles(File folder, List<File> list) { //вариант без рекурсии
+        Deque<File> stack = new ArrayDeque<>();
+        File[] files = folder.listFiles();
+        for (File f : files) {
+            if (f.isDirectory()) {
+                stack.push(f);
+            } else {
+                list.add(f);
+            }
+        }
+        while (!stack.isEmpty()) {
+            File[] tmp = stack.pop().listFiles();
+            for (File f : tmp) {
+                if (f.isDirectory()) {
+                    stack.push(f);
+                } else {
+                    list.add(f);
+                }
+            }
+        }
+    }
 }
