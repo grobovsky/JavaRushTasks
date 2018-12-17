@@ -40,7 +40,7 @@ public class Solution {
         for(String s : parts){
             inputStreams.add(new FileInputStream(s));
         }
-        Vector<InputStream> vector = new Vector<>(inputStreams);
+        Vector<InputStream> vector = new Vector<>(inputStreams); //это когда ты не помнишь, что в Collections есть метод enumeration()..
         Enumeration e = vector.elements();
         ZipInputStream zin = new ZipInputStream(new SequenceInputStream(e));
         ZipEntry z = zin.getNextEntry();
