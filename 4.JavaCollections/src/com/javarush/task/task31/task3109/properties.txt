@@ -1,0 +1,2 @@
+aname=Amigo
+level=31
