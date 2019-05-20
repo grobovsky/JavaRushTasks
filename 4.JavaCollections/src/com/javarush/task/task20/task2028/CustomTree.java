@@ -5,6 +5,7 @@ import java.util.*;
 
 /* 
 Построй дерево(1)
+Построй дерево(2)
 */
 public class CustomTree extends AbstractList<String> implements Cloneable, Serializable {
 
@@ -16,8 +17,26 @@ public class CustomTree extends AbstractList<String> implements Cloneable, Seria
 
     @Override
     public String get(int index) {
-        return node(index).value;
+        throw new UnsupportedOperationException(); //по условиям 2й части задачи
+        //return node(index).value;
     }
+
+    public void add(int index, String element){
+        throw new UnsupportedOperationException();
+    }
+
+    public List<String> subList(int fromIndex, int toIndex){
+        throw new UnsupportedOperationException();
+    }
+
+    protected void removeRange(int fromIndex, int toIndex){
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean addAll(int index, Collection<? extends String> c){
+        throw new UnsupportedOperationException();
+    }
+
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
@@ -58,7 +77,9 @@ public class CustomTree extends AbstractList<String> implements Cloneable, Seria
     }
     
     public String remove(int index) {
-        Node<String> x = node(index);
+        throw new UnsupportedOperationException(); //по условиям 2й части задачи
+
+        /*Node<String> x = node(index);
         String element = x.value;
         if (x == root) {
             root = null;
@@ -71,9 +92,8 @@ public class CustomTree extends AbstractList<String> implements Cloneable, Seria
             }
         }
         size--;
-        return element;
+        return element;*/
     }
-
     public boolean add(String e) {          //если следовать дословно условия задачи, то нужно дописывать флаг запрета на добавление узлов на месте удаленных, задача решается и без этого нелогичного гемора
         Node<String> newNode = new Node(e);
         if (root == null) {
