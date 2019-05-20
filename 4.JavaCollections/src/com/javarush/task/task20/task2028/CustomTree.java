@@ -127,7 +127,6 @@ public class CustomTree extends AbstractList<String> implements Cloneable, Seria
         return true;
     }
 
-
     static class Node<E> {
         E value;
         Node<E> left, right, parent;
@@ -135,6 +134,22 @@ public class CustomTree extends AbstractList<String> implements Cloneable, Seria
         public Node(E value) {
             this.value = value;
         }
+    }
+    
+    //класс по условиям 3й части задачи, как можно было написать код к 1й части без этого класса, хз, но 3я часть намекает, что в целом это дерево должно таки выглядеть как в условии 1й части с запретом на добавление узлов на место удаленных
+    static class Entry<T> implements Serializable {
+        String elementName;
+        boolean availableToAddLeftChildren, availableToAddRightChildren;
+        Entry<T> parent, leftChild, rightChild;
 
+        public Entry (String s){
+            this.elementName = s;
+            this.availableToAddLeftChildren = true;
+            this.availableToAddRightChildren = true;
+        }
+
+        public boolean isAvailableToAddChildren(){
+            return availableToAddLeftChildren || availableToAddRightChildren;
+        }
     }
 }
